@@ -11,3 +11,5 @@ This type of encryption is relatively simple and easy to use, but it is not cons
 To decrypt a message encrypted with the QWERTY-3 Cipher, the recipient would need to know the algorithm and the exact correspondence between letters and coordinates.
 
 Please note that this is just a fictional cipher example, and it is not considered to be a secure encryption method in practice.
+
+This project was created with the aid of an AI language model, [ChatGPT by OpenAI](https://openai.com/blog/chatgpt/).
