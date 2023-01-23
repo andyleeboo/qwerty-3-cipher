@@ -6,6 +6,8 @@ The first digit can be any number from 1 to 0 and the second digit can only be 1
 
 For example, the letter "q" would be encoded as "1-1", "a" as "1-2" and "z" as "1-3".
 
+To represent the spacebar in the ciphertext, we use the string "\_\_".
+
 This type of encryption is relatively simple and easy to use, but it is not considered to be very secure, as the layout of the keyboard is well known and can be easily determined by frequency analysis.
 
 To decrypt a message encrypted with the QWERTY-3 Cipher, the recipient would need to know the algorithm and the exact correspondence between letters and coordinates.
