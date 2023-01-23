@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { analytics } from '$lib/firebase';
 	import { Qwerty3Cipher } from '$lib/qwerty-3-cipher';
 	import { CopyButton, TextArea } from 'carbon-components-svelte';
+	import { logEvent } from 'firebase/analytics';
+	import { onMount } from 'svelte';
 
 	const title = 'QWERTY-3 Cipher';
 	const cipher = new Qwerty3Cipher();
@@ -8,6 +11,14 @@
 	let value: string = 'hello world';
 
 	$: result = cipher.encrypt(value);
+
+	onMount(() => {
+		logEvent(analytics, 'page_view', {
+			page_title: title,
+			page_location: window.location.href,
+			page_path: window.location.pathname
+		});
+	});
 </script>
 
 <svelte:head>
