@@ -1,5 +1,14 @@
 <script lang="ts">
+	import { Qwerty3Cipher } from '$lib/qwerty-3-cipher';
+
 	const title = 'QWERTY-3 Cipher';
+	const cipher = new Qwerty3Cipher();
+
+	let encryptValue: string = 'hello world';
+	let decryptValue: string = '6-2 3-1 9-2 9-2 9-1 __ 2-1 9-1 4-1 9-2 3-2';
+
+	$: encryptResult = cipher.encrypt(encryptValue);
+	$: decryptResult = cipher.decrypt(decryptValue);
 </script>
 
 <svelte:head>
@@ -25,7 +34,17 @@
 	method in practice.
 </p>
 
-<div />
+<h2>Playground</h2>
+
+<div class="example">
+	<input type="text" bind:value={encryptValue} />
+	<p>{encryptResult}</p>
+</div>
+
+<div class="example">
+	<input type="text" bind:value={decryptValue} />
+	<p>{decryptResult}</p>
+</div>
 
 <footer>
 	<span>
@@ -40,10 +59,18 @@
 </footer>
 
 <style>
+	input {
+		width: 100%;
+	}
 	footer {
 		position: absolute;
 		bottom: 0;
 		width: 100%;
 		text-align: center;
+	}
+	.example {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 </style>
