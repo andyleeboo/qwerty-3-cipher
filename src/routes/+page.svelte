@@ -25,8 +25,9 @@
 	method in practice.
 </p>
 
-<div>
+<footer>
+	<span> Copyright © 2023, andyleeboo. All rights reserved. </span>
 	<p>
 		This project was aided by <a href="https://openai.com/blog/chatgpt/"> ChatGPT</a>
 	</p>
-</div>
+</footer>
