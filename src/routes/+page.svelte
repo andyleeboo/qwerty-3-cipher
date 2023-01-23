@@ -25,9 +25,25 @@
 	method in practice.
 </p>
 
+<div />
+
 <footer>
-	<span> Copyright © 2023, andyleeboo. All rights reserved. </span>
+	<span>
+		Copyright © 2023, <a href="https://github.com/andyleeboo">andyleeboo</a>. All rights reserved.
+	</span>
+	<div>
+		<a href="https://github.com/andyleeboo/qwerty-3-cipher">Github</a>
+	</div>
 	<p>
 		This project was aided by <a href="https://openai.com/blog/chatgpt/"> ChatGPT</a>
 	</p>
 </footer>
+
+<style>
+	footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+	}
+</style>
