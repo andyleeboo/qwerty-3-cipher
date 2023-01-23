@@ -13,5 +13,6 @@
 	"files.trimTrailingWhitespace": true,
 	"[svelte]": {
 		"editor.defaultFormatter": "svelte.svelte-vscode"
-	}
+	},
+	"cSpell.words": ["Byungho"]
 }
