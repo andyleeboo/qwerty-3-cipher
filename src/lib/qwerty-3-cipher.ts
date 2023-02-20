@@ -8,6 +8,7 @@ const cipherFormat = /^[0-9]-[1-3]$/;
 
 export class Qwerty3Cipher {
 	encrypt(plainText: string): string {
+		plainText = plainText.toLowerCase();
 		let cipherText = '';
 
 		if (!plainText) return cipherText;
@@ -28,12 +29,15 @@ export class Qwerty3Cipher {
 			for (let j = 0; j < qwertyKeyboard.length && !found; j++) {
 				for (let k = 0; k < qwertyKeyboard[j].length && !found; k++) {
 					if (qwertyKeyboard[j][k] == char) {
-						cipherText += k + 1 + '-' + (j + 1) + ' ';
+						const x = k + 1 > 9 ? k + 1 - 10 : k + 1;
+						const y = j + 1;
+						cipherText += x + '-' + y + ' ';
 						found = true;
 					}
 				}
 			}
 		}
+
 		return cipherText.trim();
 	}
 
