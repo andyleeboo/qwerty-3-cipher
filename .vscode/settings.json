@@ -14,5 +14,5 @@
 	"[svelte]": {
 		"editor.defaultFormatter": "svelte.svelte-vscode"
 	},
-	"cSpell.words": ["Byungho"]
+	"cSpell.words": ["Byungho", "ciphertext", "spacebar"]
 }

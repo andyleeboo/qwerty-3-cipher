@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { analytics } from '$lib/firebase';
+	import { languageStore } from '$lib/language-store';
 	import { Qwerty3Cipher } from '$lib/qwerty-3-cipher';
-	import { CopyButton, TextArea } from 'carbon-components-svelte';
+	import { CopyButton, Select, SelectItem, TextArea } from 'carbon-components-svelte';
 	import { logEvent } from 'firebase/analytics';
 	import { onMount } from 'svelte';
+	import { _ } from 'svelte-i18n';
 
 	const title = 'QWERTY-3 Cipher';
 	const cipher = new Qwerty3Cipher();
@@ -11,6 +13,12 @@
 	let value: string = 'hello world';
 
 	$: result = cipher.encrypt(value);
+
+	function changeLanguage(e: any) {
+		const selectedLanguage = e.target.value;
+		localStorage.setItem('language', selectedLanguage);
+		languageStore.set(selectedLanguage);
+	}
 
 	onMount(() => {
 		logEvent(analytics, 'page_view', {
@@ -22,28 +30,26 @@
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	<title>{$_('page.home.title')}</title>
 </svelte:head>
 
 <main>
-	<h1>{title}</h1>
+	<div class="top">
+		<h1>{$_('page.home.title')}</h1>
 
-	<p>
-		The QWERTY-3 Cipher is a simple encryption algorithm that uses the layout of the QWERTY keyboard
-		to encode messages. Each letter of the plaintext message is replaced with a pair of digits in
-		the format of "number-number" representing its position on the keyboard.
-	</p>
-	<p>The first digit can be any number from 1 to 0 and the second digit can only be 1 to 3.</p>
-	<p>To represent the spacebar in the ciphertext, we use the string "__".</p>
-	<p>
-		This type of encryption is relatively simple and easy to use, but it is not considered to be
-		very secure, as the layout of the keyboard is well known and can be easily determined by
-		frequency analysis.
-	</p>
-	<p>
-		Please note that this is a fictional example, and it is not considered to be a secure encryption
-		method in practice.
-	</p>
+		<div class="lang">
+			<Select on:change={(e) => changeLanguage(e)}>
+				<SelectItem value="eng" />
+				<SelectItem value="kor" />
+			</Select>
+		</div>
+	</div>
+
+	<p>{$_('page.home.intro.first')}</p>
+	<p>{$_('page.home.intro.second')}</p>
+	<p>{$_('page.home.intro.third')}</p>
+	<p>{$_('page.home.intro.fourth')}</p>
+	<p>{$_('page.home.intro.fifth')}</p>
 
 	<h2>Playground</h2>
 
@@ -76,7 +82,9 @@
 		padding: 1rem 1rem;
 		max-width: 1020px;
 	}
-	h1,
+	h1 {
+		margin-bottom: 2rem;
+	}
 	h2,
 	p {
 		margin-bottom: 1rem;
@@ -90,6 +98,15 @@
 		align-items: center;
 		justify-content: center;
 		max-width: 1020px;
+	}
+	.top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		width: 100%;
+	}
+	.lang {
+		min-width: 100px;
 	}
 	.box {
 		margin-bottom: 1rem;
