@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { analytics } from '$lib/firebase';
-	import { languageStore } from '$lib/language-store';
 	import { Qwerty3Cipher } from '$lib/qwerty-3-cipher';
 	import { CopyButton, Select, SelectItem, TextArea } from 'carbon-components-svelte';
 	import { logEvent } from 'firebase/analytics';
@@ -11,16 +10,34 @@
 	const cipher = new Qwerty3Cipher();
 
 	let value: string = 'hello world';
+	let lang: string;
 
 	$: result = cipher.encrypt(value);
 
 	function changeLanguage(e: any) {
 		const selectedLanguage = e.target.value;
-		localStorage.setItem('language', selectedLanguage);
-		languageStore.set(selectedLanguage);
+		addQueryStringParam('lang', selectedLanguage);
+		reloadPage();
+	}
+
+	function getQueryStringParam(key: string) {
+		const url = new URL(window.location.href);
+		return url.searchParams.get(key);
+	}
+
+	function addQueryStringParam(key: string, value: string) {
+		const url = new URL(window.location.href);
+		url.searchParams.set(key, value);
+		window.history.pushState({}, '', url.href);
+	}
+
+	function reloadPage() {
+		window.location.reload();
 	}
 
 	onMount(() => {
+		lang = getQueryStringParam('lang') || 'en';
+
 		logEvent(analytics, 'page_view', {
 			page_title: title,
 			page_location: window.location.href,
@@ -38,9 +55,9 @@
 		<h1>{$_('page.home.title')}</h1>
 
 		<div class="lang">
-			<Select on:change={(e) => changeLanguage(e)}>
-				<SelectItem value="eng" />
-				<SelectItem value="kor" />
+			<Select selected={lang} on:change={(e) => changeLanguage(e)}>
+				<SelectItem value="en" />
+				<SelectItem value="ko" />
 			</Select>
 		</div>
 	</div>
