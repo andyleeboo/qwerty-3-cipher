@@ -1,0 +1,18 @@
+{
+	"page": {
+		"home": {
+			"title": "QWERTY-3 Cipher",
+			"intro": {
+				"first": "The QWERTY-3 Cipher is a simple encryption algorithm that uses the layout of the QWERTY keyboard to encode messages. Each letter of the plaintext message is replaced with a pair of digits in the format of \"number-number\" representing its position on the keyboard.",
+				"second": "The first digit can be any number from 1 to 0 and the second digit can only be 1 to 3.",
+				"third": "To represent the spacebar in the ciphertext, we use the string \"__\".",
+				"fourth": "This type of encryption is relatively simple and easy to use, but it is not considered to be very secure, as the layout of the keyboard is well known and can be easily determined by frequency analysis.",
+				"fifth": "Please note that this is a fictional example, and it is not considered to be a secure encryption method in practice."
+			},
+			"playground": {
+				"title": "Playground",
+				"example": "hello world"
+			}
+		}
+	}
+}

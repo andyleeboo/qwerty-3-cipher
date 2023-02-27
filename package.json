@@ -32,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^9.17.1"
+		"firebase": "^9.17.1",
+		"svelte-i18n": "^3.6.0"
 	}
 }
