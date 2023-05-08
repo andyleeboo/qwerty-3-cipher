@@ -23,6 +23,7 @@
 
 <svelte:head>
 	<title>{title}</title>
+	<meta name="description" content="A simple encryption based on QWERTY keyboard." />
 </svelte:head>
 
 <main>
