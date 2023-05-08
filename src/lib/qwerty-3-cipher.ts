@@ -3,6 +3,11 @@ const qwertyKeyboard = [
 	['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
 	['z', 'x', 'c', 'v', 'b', 'n', 'm']
 ];
+const koreanKeyboard = [
+	['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'],
+	['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'],
+	['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ']
+];
 const plainTextFormat = /^[a-zA-Z\s]$/;
 const cipherFormat = /^[0-9]-[1-3]$/;
 
