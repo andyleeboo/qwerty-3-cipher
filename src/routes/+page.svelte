@@ -7,9 +7,7 @@
 
 	const title = 'QWERTY-3 Cipher';
 	const cipher = new Qwerty3Cipher();
-
 	let value: string = 'hello world';
-
 	$: result = cipher.encrypt(value);
 
 	onMount(() => {
@@ -28,7 +26,6 @@
 
 <main>
 	<h1>{title}</h1>
-
 	<p>
 		The QWERTY-3 Cipher is a simple encryption algorithm that uses the layout of the QWERTY keyboard
 		to encode messages. Each letter of the plaintext message is replaced with a pair of digits in
@@ -47,11 +44,15 @@
 	</p>
 
 	<h2>Playground</h2>
-
 	<div class="box">
 		<TextArea labelText="Plain Text" placeholder="Write something here" bind:value />
 		<div class="wrapper">
-			<TextArea labelText="Cipher Text" placeholder="Write something here" bind:value={result} />
+			<TextArea
+				labelText="Cipher Text"
+				placeholder="The encrypted text will appear here"
+				bind:value={result}
+				readonly
+			/>
 			<div class="button-wrapper">
 				<CopyButton text={result} />
 			</div>
@@ -67,15 +68,16 @@
 		<a href="https://github.com/andyleeboo/qwerty-3-cipher">Github</a>
 	</div>
 	<span>
-		This project was aided by <a href="https://openai.com/blog/chatgpt/"> ChatGPT</a>
+		This project was aided by <a href="https://openai.com/blog/chatgpt/">ChatGPT</a>.
 	</span>
 </footer>
 
 <style>
 	main {
 		min-height: 85vh;
-		padding: 1rem 1rem;
+		padding: 1rem;
 		max-width: 1020px;
+		margin: auto;
 	}
 	h1,
 	h2,
@@ -83,30 +85,33 @@
 		margin-bottom: 1rem;
 	}
 	footer {
-		padding: 1rem 1rem;
+		padding: 1rem;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
 		align-items: center;
 		justify-content: center;
-		max-width: 1020px;
+		border-top: 1px solid #ccc;
+		margin-top: 1rem;
 	}
 	.box {
 		margin-bottom: 1rem;
 		width: 100%;
 		display: flex;
+		flex-direction: column;
 		gap: 1rem;
 	}
 	.wrapper {
 		display: flex;
+		flex-direction: column;
 		gap: 1rem;
 	}
 	.button-wrapper {
-		padding-top: 24px;
+		align-self: center;
 	}
 	@media only screen and (max-width: 768px) {
-		.box {
+		.wrapper {
 			flex-direction: column;
 		}
 	}

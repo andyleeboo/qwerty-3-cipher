@@ -1,66 +1,48 @@
-const qwertyKeyboard = [
+const qwertyKeyboard: string[][] = [
 	['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
 	['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
 	['z', 'x', 'c', 'v', 'b', 'n', 'm']
 ];
-const plainTextFormat = /^[a-zA-Z\s]$/;
+const plainTextFormat = /^[a-zA-Z\s]+$/;
 const cipherFormat = /^[0-9]-[1-3]$/;
 
 export class Qwerty3Cipher {
 	encrypt(plainText: string): string {
-		plainText = plainText.toLowerCase();
+		if (!this.validatePlainText(plainText)) return '';
+
 		let cipherText = '';
+		const charToCipherMapping: Record<string, string> = this.createCharToCipherMapping();
 
-		if (!plainText) return cipherText;
-
-		for (let i = 0; i < plainText.length; i++) {
-			const char = plainText.charAt(i);
-
-			if (!this.validatePlainText(char)) {
-				continue;
-			}
-
-			if (char === ' ') {
-				cipherText += '__ ';
-				continue;
-			}
-
-			let found = false;
-			for (let j = 0; j < qwertyKeyboard.length && !found; j++) {
-				for (let k = 0; k < qwertyKeyboard[j].length && !found; k++) {
-					if (qwertyKeyboard[j][k] == char) {
-						const x = k + 1 > 9 ? k + 1 - 10 : k + 1;
-						const y = j + 1;
-						cipherText += x + '-' + y + ' ';
-						found = true;
-					}
-				}
-			}
+		for (const char of plainText.toLowerCase()) {
+			cipherText += charToCipherMapping[char] || (char === ' ' ? '__' : '');
+			cipherText += ' ';
 		}
 
 		return cipherText.trim();
 	}
 
 	decrypt(cipherText: string): string {
-		let plainText = '';
-
-		if (!cipherText) return plainText;
-
 		const coordinates = cipherText.trim().split(' ');
-		for (let i = 0; i < coordinates.length; i++) {
-			if (coordinates[i] === '__') {
-				plainText += ' ';
-				continue;
-			}
 
-			if (this.validateCipherText(coordinates[i])) {
-				const coord = coordinates[i].split('-');
-				const row = Number(coord[1]) - 1 ?? '';
-				const col = Number(coord[0]) - 1 ?? '';
-				plainText += qwertyKeyboard[row][col];
-			}
-		}
-		return plainText.trim();
+		return coordinates
+			.map((coord) => {
+				if (coord === '__') return ' ';
+				if (!this.validateCipherText(coord)) return '';
+
+				const [col, row] = coord.split('-').map(Number);
+				return qwertyKeyboard[row - 1]?.[col - 1] ?? '';
+			})
+			.join('');
+	}
+
+	private createCharToCipherMapping(): Record<string, string> {
+		const mapping: Record<string, string> = {};
+		qwertyKeyboard.forEach((row, rowIndex) => {
+			row.forEach((char, charIndex) => {
+				mapping[char] = `${(charIndex + 1) % 10}-${rowIndex + 1}`;
+			});
+		});
+		return mapping;
 	}
 
 	private validatePlainText(plainText: string): boolean {
@@ -68,6 +50,8 @@ export class Qwerty3Cipher {
 	}
 
 	private validateCipherText(cipherText: string): boolean {
-		return cipherFormat.test(cipherText);
+		// If cipherText is empty, avoid splitting it into an empty array [""] which would incorrectly pass the test.
+		if (!cipherText) return false;
+		return cipherText.split(' ').every((ct) => ct === '__' || cipherFormat.test(ct));
 	}
 }
